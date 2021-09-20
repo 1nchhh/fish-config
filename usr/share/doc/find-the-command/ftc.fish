@@ -57,7 +57,7 @@ if test "$__cnf_noprompt" -eq 1
         set cmd "$argv[1]"
         __cnf_pre_search_warn "$cmd"
 
-        set packages (pkgfile --binaries -- "$cmd" ^/dev/null)
+        set packages (apt-cache pkgnames"$cmd")
         switch (echo "$packages" | wc -w)
             case 0
                 __cnf_cmd_not_found "$cmd"
@@ -82,7 +82,7 @@ else
     function fish_command_not_found
         set cmd "$argv[1]"
         __cnf_pre_search_warn "$cmd"
-        set packages (pkgfile --binaries -- "$cmd" ^/dev/null)
+        set packages (apt-cache pkgnames "$cmd")
         switch (echo "$packages" | wc -w)
             case 0
                 __cnf_cmd_not_found "$cmd"
@@ -109,24 +109,14 @@ else
 
                 switch "$action"
                     case 'install'
-                        "$__cnf_asroot" pacman -S "$packages"
-                    case 'info'
-                        pacman -Si "$packages"
-                        __prompt_install "$packages"
-                    case 'list files'
-                        pacman -Flq "$packages"
-                        __prompt_install "$packages"
-                    case 'list files (paged)'
-                        test -z "$pager"; and set --local pager less
-                        pacman -Flq "$packages" | "$pager"
-                        __prompt_install "$packages"
+                        "$__cnf_asroot" apt install "$packages"
                     case '*'
                         return 127
                 end
             case '*'
                 __cnf_print "\"$cmd\" may be found in the following packages:\n"
                 set --local package (echo "$packages" | tr " " "\n" | fzf --prompt "Select a package to install (\"esc\" to abort):")
-                test -n "$package" and "$__cnf_asroot" pacman -S "$package" or return 127
+                test -n "$package" and "$__cnf_asroot" apt install "$package" or return 127
         end
     end
 end
