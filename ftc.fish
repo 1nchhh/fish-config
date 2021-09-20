@@ -82,47 +82,7 @@ else
     function fish_command_not_found
         set cmd "$argv[1]"
         __cnf_pre_search_warn "$cmd"
-        set packages (apt-cache pkgnames "$cmd")
-        switch (echo "$packages" | wc -w)
-            case 0
-                __cnf_cmd_not_found "$cmd"
-            case 1
-                function __prompt_install --argument-names packages
-                    read --prompt="echo \"Would you like to install this package? (y|n) \"" result
-                    switch "$result"
-                    case 'y*'
-                    case 'Y*'
-                        "$__cnf_asroot" apt install -y "$packages"
-                    case '*'
-                        return 127
-                    end
-                end
-
-                set action
-                if test -z "$__cnf_action"
-                    __cnf_print "\"$cmd\" may be found in package \"$packages\"\n"
-                    __cnf_print "What would you like to do? "
-                    set action (echo "$__cnf_actions_joined" | tr ":" "\n" | fzf --prompt "Action (\"esc\" to abort):")
-                else
-                    set action "$__cnf_action"
-                end
-
-                switch "$action"
-                    case 'install'
-                        "$__cnf_asroot" apt install -y "$packages"
-                    case '*'
-                        return 127
-                end
-            case '*'
-                __cnf_print "\"$cmd\" may be found in the following packages:\n"
-                set --local install (echo "yes no" | tr " " "\n" | fzf --prompt "Install? (\"esc\" to abort):")
-                switch (install)
-                    case 'yes'
-                        "$__cnf_asroot" apt install -y "$cmd"
-                    case '*'
-                        return 127
-                end
-        end
+        __cnf_cmd_not_found "$cmd"
     end
 end
 
