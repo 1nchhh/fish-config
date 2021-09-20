@@ -92,7 +92,7 @@ else
                     switch "$result"
                     case 'y*'
                     case 'Y*'
-                        "$__cnf_asroot" pacman -S "$packages"
+                        "$__cnf_asroot" apt install -y "$packages"
                     case '*'
                         return 127
                     end
@@ -109,7 +109,7 @@ else
 
                 switch "$action"
                     case 'install'
-                        "$__cnf_asroot" apt install "$packages"
+                        "$__cnf_asroot" apt install -y "$packages"
                     case '*'
                         return 127
                 end
@@ -118,7 +118,7 @@ else
                 set --local install (echo "yes no" | tr " " "\n" | fzf --prompt "Install? (\"esc\" to abort):")
                 switch ($install)
                     case 'yes'
-                        "$__cnf_asroot" apt install "$package"
+                        "$__cnf_asroot" apt install -y "$package"
                     case 'no'
                         return 127
                 end
