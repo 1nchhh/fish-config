@@ -4,12 +4,11 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-$user = "root"
+user=root
 
-if [[ $# -eq 1 ]] ; then
-  $user = $1
+if [[ $1 ]] ; then
+  user=$1
 fi
-
 echo "Installing for user $user..."
 
 # set up folders
