@@ -116,7 +116,7 @@ else
             case '*'
                 __cnf_print "\"$cmd\" may be found in the following packages:\n"
                 set --local install (echo "yes no" | tr " " "\n" | fzf --prompt "Install? (\"esc\" to abort):")
-                switch ($install)
+                switch (install)
                     case 'yes'
                         "$__cnf_asroot" apt install -y "$package"
                     case '*'
