@@ -26,7 +26,7 @@ cp ./ftc.fish  ~/.config/ftc/ftc.fish
 # install
 echo "Installing packages..."
 apt update
-apt install fish fzf -y
+apt install fish neofetch fzf -y
 snap install starship
 
 # set default shell
