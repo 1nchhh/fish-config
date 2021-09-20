@@ -119,7 +119,7 @@ else
                 switch ($install)
                     case 'yes'
                         "$__cnf_asroot" apt install -y "$package"
-                    case 'no'
+                    case '*'
                         return 127
                 end
         end
