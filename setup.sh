@@ -13,15 +13,15 @@ echo "Installing for user $user..."
 
 # set up folders
 echo "Making folders..."
-mkdir -p ~/.config/
-mkdir -p ~/.config/fish/
-mkdir -p ~/.config/ftc
+mkdir -p "/home/$user/.config/"
+mkdir -p "/home/$user/.config/fish/"
+mkdir -p "/home/$user/.config/ftc"
 
 # copy files
 echo "Copying files..."
-cp ./starship.toml ~/.config/starship.toml
-cp ./config.fish  ~/.config/fish/config.fish
-cp ./ftc.fish  ~/.config/ftc/ftc.fish
+cp ./starship.toml "/home/$user/.config/starship.toml"
+cp ./config.fish  "/home/$user/.config/fish/config.fish"
+cp ./ftc.fish  "/home/$user/.config/ftc/ftc.fish"
 
 # install
 echo "Installing packages..."
