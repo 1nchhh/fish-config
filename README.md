@@ -5,5 +5,5 @@ Files taken from Garuda linux and moved to ubuntu
 
 ```bash
 git clone https://github.com/1nchpp/fish-config.git
-cd fish-config && ./start.sh
+cd fish-config && ./setup.sh
 ```
