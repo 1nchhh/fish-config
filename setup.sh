@@ -27,7 +27,7 @@ cp ./ftc.fish  "/home/$user/.config/ftc/ftc.fish"
 echo "Installing packages..."
 apt update
 apt install fish neofetch fzf -y
-sh -c "$(curl -fsSL https://starship.rs/install.sh)"
+curl -fsSL https://starship.rs/install.sh | sh
 
 # set default shell
 echo "Changing defautl shell..."
