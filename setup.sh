@@ -1,27 +1,37 @@
+  GNU nano 6.2                                                    ./setup.sh                                                              
 #!/usr/bin/bash
 if [[ $EUID -ne 0 ]]; then
    echo "This script must be run as root" 
    exit 1
 fi
 
-user=root
+user="root"
 
 if [[ $1 ]] ; then
   user=$1
 fi
-echo "Installing for user $user..."
+
+basedir="/home/$user"
+
+if [[  $user == "root" ]] ; then
+basedir="/root"
+else
+basedir="/home/$user"
+fi
+
+echo "Installing for user $user in directory $basedir..."
 
 # set up folders
 echo "Making folders..."
-mkdir -p "/home/$user/.config/"
-mkdir -p "/home/$user/.config/fish/"
-mkdir -p "/home/$user/.config/ftc"
+mkdir -p "$basedir/.config/"
+mkdir -p "$basedir/.config/fish/"
+mkdir -p "$basedir/.config/ftc"
 
 # copy files
 echo "Copying files..."
-cp ./starship.toml "/home/$user/.config/starship.toml"
-cp ./config.fish  "/home/$user/.config/fish/config.fish"
-cp ./ftc.fish  "/home/$user/.config/ftc/ftc.fish"
+cp ./starship.toml "$basedir/.config/starship.toml"
+cp ./config.fish  "$basedir/.config/fish/config.fish"
+cp ./ftc.fish  "$basedir/.config/ftc/ftc.fish"
 
 # install
 echo "Installing packages..."
